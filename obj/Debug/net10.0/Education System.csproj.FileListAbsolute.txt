@@ -1,0 +1,37 @@
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\bin\Debug\net10.0\appsettings.Development.json
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\bin\Debug\net10.0\appsettings.json
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\bin\Debug\net10.0\Education System.staticwebassets.endpoints.json
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\bin\Debug\net10.0\Education System.exe
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\bin\Debug\net10.0\Education System.deps.json
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\bin\Debug\net10.0\Education System.runtimeconfig.json
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\bin\Debug\net10.0\Education System.dll
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\bin\Debug\net10.0\Education System.pdb
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\bin\Debug\net10.0\Microsoft.OpenApi.dll
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\Education System.csproj.AssemblyReference.cache
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\rpswa.dswa.cache.json
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\Education System.GeneratedMSBuildEditorConfig.editorconfig
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\Education System.AssemblyInfoInputs.cache
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\Education System.AssemblyInfo.cs
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\Education System.csproj.CoreCompileInputs.cache
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\Education System.MvcApplicationPartsAssemblyInfo.cs
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\Education System.MvcApplicationPartsAssemblyInfo.cache
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\rjimswa.dswa.cache.json
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\scopedcss\bundle\Education System.styles.css
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\staticwebassets.build.json
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\staticwebassets.build.json.cache
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\staticwebassets.development.json
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\staticwebassets.build.endpoints.json
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\swae.build.ex.cache
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\Educatio.121DBE6D.Up2Date
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\Education System.dll
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\refint\Education System.dll
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\Education System.pdb
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\Education System.genruntimeconfig.cache
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\obj\Debug\net10.0\ref\Education System.dll
