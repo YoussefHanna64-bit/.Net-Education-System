@@ -26,6 +26,11 @@ namespace Education_System.Controllers
 		[HttpGet("{id:int}")]
 		public IActionResult getStudentByID(int id)
 		{
+			if (id == 0)
+			{
+				throw new Exception("ID can't be zero");
+			}
+
 			var st = db.Students.FirstOrDefault(s => s.Id == id);
 
 			if (st == null)
@@ -72,7 +77,7 @@ namespace Education_System.Controllers
 			student.Email = st.Email;
 			student.Level = st.Level;
 			student.DateOfBirth = st.DateOfBirth;
-			
+
 			db.SaveChanges();
 
 			return Ok(new { msg = "success", data = st });

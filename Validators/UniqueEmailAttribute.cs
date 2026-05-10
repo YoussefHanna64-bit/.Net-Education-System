@@ -11,7 +11,7 @@ namespace Education_System.Validators
 			string email = (string)value!;
 			var st = validationContext.ObjectInstance as Student;
 
-			var db = new EduContext();
+			var db = (EduContext)validationContext.GetService(typeof(EduContext))!;
 			var student = db.Students.FirstOrDefault(s => s.Email == email && s.Id != st!.Id);
 
 			if (student != null)
