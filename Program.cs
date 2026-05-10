@@ -27,6 +27,15 @@ namespace Education_System
 
 			builder.Host.UseNLog();
 
+			builder.Services.AddCors(op=> { 
+                op.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+            } );
+
 			var app = builder.Build();
 
 			app.UseExceptionHandle();
@@ -42,6 +51,8 @@ namespace Education_System
 
 			//app.UseAuthorization();
 			app.UseStaticFiles();
+			
+            app.UseCors("AllowAll");
 
 			app.MapControllers();
 
