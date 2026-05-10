@@ -1,15 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 using Education_System.Validators;
 
-namespace Education_System.Models
+namespace Education_System.DTOs
 {
-	public class Student
+	public class StudentInputDTO
 	{
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
-
 		[MinLength(6, ErrorMessage = "Name must be at least 6 chars")]
 		[MaxLength(15, ErrorMessage = "Name must be at most 15 chars")]
 		[RegularExpression("^[a-zA-Z ]+$", ErrorMessage = "Name must contain only letters and spaces")]
@@ -24,14 +19,12 @@ namespace Education_System.Models
 		public string Email { get; set; }
 
 		public int Level { get; set; }
+
 		[DateInPast]
 		public DateTime DateOfBirth { get; set; }
 
-		public string? ImagePath { get; set; }
-
-		[ForeignKey(nameof(Department))]
 		public int? DeptId { get; set; }
 
-		public Department? Department { get; set; }
+		public IFormFile? ImageFile { get; set; }
 	}
 }

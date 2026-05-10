@@ -1,8 +1,10 @@
 ﻿using System.IO;
 using Education_System.Context;
+using Education_System.DTOs;
 using Education_System.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Education_System.Controllers
 {
@@ -32,46 +34,116 @@ namespace Education_System.Controllers
 		[HttpGet]
 		public IActionResult getAllStudents()
 		{
-			var students = db.Students.ToList();
-			return Ok(new { msg = "success", data = students });
+			var st = db.Students.Include(d => d.Department).ToList();
+			if (st is null)
+			{
+				return NotFound("No Students Found");
+			}
+
+			List<StudentDTO> stDTOs = new List<StudentDTO>();
+
+			foreach (var s in st)
+			{
+				stDTOs.Add(new StudentDTO
+				{
+					Id = s.Id,
+					Name = s.Name,
+					Address = s.Address,
+					Email = s.Email,
+					Age = s.Age,
+					Level = s.Level,
+					DateOfBirth = s.DateOfBirth,
+					ImagePath = s.ImagePath,
+					Department = s.Department?.Name,
+					Message = $"Student {s.Name} is in department {s.DeptId}"
+				});
+			}
+
+			return Ok(new { msg = "success", data = stDTOs });
 		}
 
 		[HttpGet("{id:int}")]
 		public IActionResult getStudentByID(int id)
 		{
-			if (id == 0)
-			{
-				throw new Exception("ID can't be zero");
-			}
+			// if (id == 0)
+			// {
+			// 	throw new Exception("ID can't be zero");
+			// }
 
-			var st = db.Students.FirstOrDefault(s => s.Id == id);
+			var st = db.Students.Include(s => s.Department).FirstOrDefault(s => s.Id == id);
 
 			if (st == null)
 			{
 				return NotFound(new { msg = "Student Not Found" });
 			}
-			return Ok(new { msg = "success", data = st });
+
+			StudentDTO stDTO = new StudentDTO
+			{
+				Id = st.Id,
+				Name = st.Name,
+				Age = st.Age,
+				Address = st.Address,
+				Email = st.Email,
+				Level = st.Level,
+				DateOfBirth = st.DateOfBirth,
+				ImagePath = st.ImagePath,
+				Department = st.Department?.Name,
+				Message = $"Student {st.Name} is in department {st.DeptId}"
+			};
+
+			return Ok(new { msg = "success", data = stDTO });
 		}
 
 
 		[HttpGet("{name:alpha}")]
 		public IActionResult getStudentByName(string name)
 		{
-			var st = db.Students.FirstOrDefault(s => s.Name == name);
+			var st = db.Students.Include(s => s.Department).FirstOrDefault(s => s.Name == name);
 
 			if (st == null)
 			{
 				return NotFound(new { msg = "Student Not Found" });
 			}
-			return Ok(new { msg = "success", data = st });
+
+			StudentDTO stDTO = new StudentDTO
+			{
+				Id = st.Id,
+				Name = st.Name,
+				Age = st.Age,
+				Address = st.Address,
+				Email = st.Email,
+				Level = st.Level,
+				DateOfBirth = st.DateOfBirth,
+				ImagePath = st.ImagePath,
+				Department = st.Department?.Name,
+				Message = $"Student {st.Name} is in department {st.DeptId}"
+			};
+
+			return Ok(new { msg = "success", data = stDTO });
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> addStudent([FromForm] Student st)
+		public async Task<IActionResult> addStudent([FromForm] StudentInputDTO stDTO)
 		{
-			if (st.ImageFile != null)
+			if (!ModelState.IsValid)
 			{
-				st.ImagePath = await UploadImage(st.ImageFile);
+				return BadRequest(ModelState);
+			}
+
+			var st = new Student
+			{
+				Name = stDTO.Name,
+				Age = stDTO.Age,
+				Address = stDTO.Address,
+				Email = stDTO.Email,
+				Level = stDTO.Level,
+				DateOfBirth = stDTO.DateOfBirth,
+				DeptId = stDTO.DeptId,
+			};
+
+			if (stDTO.ImageFile != null)
+			{
+				st.ImagePath = await UploadImage(stDTO.ImageFile);
 			}
 
 			db.Students.Add(st);
@@ -81,25 +153,32 @@ namespace Education_System.Controllers
 		}
 
 		[HttpPut("{id}")]
-		public async Task<IActionResult> updateStudent(int id, [FromForm] Student st)
+		public async Task<IActionResult> updateStudent(int id, [FromForm] StudentInputDTO stDTO)
 		{
-			if (st.ImageFile != null)
+			if (!ModelState.IsValid)
 			{
-				st.ImagePath = await UploadImage(st.ImageFile);
+				return BadRequest(ModelState);
 			}
 
-			var student = db.Students.FirstOrDefault(s => s.Id == id);
+			var st = db.Students.FirstOrDefault(s => s.Id == id);
 
-			if (student == null)
+			if (st == null)
 			{
 				return NotFound(new { msg = "Student Not Found" });
 			}
-			student.Name = st.Name;
-			student.Age = st.Age;
-			student.Address = st.Address;
-			student.Email = st.Email;
-			student.Level = st.Level;
-			student.DateOfBirth = st.DateOfBirth;
+
+			st.Name = stDTO.Name;
+			st.Age = stDTO.Age;
+			st.Address = stDTO.Address;
+			st.Email = stDTO.Email;
+			st.Level = stDTO.Level;
+			st.DateOfBirth = stDTO.DateOfBirth;
+			st.DeptId = stDTO.DeptId;
+
+			if (stDTO.ImageFile != null)
+			{
+				st.ImagePath = await UploadImage(stDTO.ImageFile);
+			}
 
 			db.SaveChanges();
 

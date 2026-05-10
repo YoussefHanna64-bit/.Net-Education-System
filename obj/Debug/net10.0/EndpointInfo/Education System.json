@@ -5,6 +5,131 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/Department": {
+      "get": {
+        "tags": [
+          "Department"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Department"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DepartmentInputDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DepartmentInputDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DepartmentInputDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Department/{id}": {
+      "get": {
+        "tags": [
+          "Department"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Department"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DepartmentInputDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DepartmentInputDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DepartmentInputDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Department"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Student": {
       "get": {
         "tags": [
@@ -26,10 +151,6 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "Id": {
-                    "type": "integer",
-                    "format": "int32"
-                  },
                   "Name": {
                     "maxLength": 15,
                     "minLength": 6,
@@ -56,8 +177,9 @@
                     "type": "string",
                     "format": "date-time"
                   },
-                  "ImagePath": {
-                    "type": "string"
+                  "DeptId": {
+                    "type": "integer",
+                    "format": "int32"
                   },
                   "ImageFile": {
                     "type": "string",
@@ -66,9 +188,6 @@
                 }
               },
               "encoding": {
-                "Id": {
-                  "style": "form"
-                },
                 "Name": {
                   "style": "form"
                 },
@@ -87,7 +206,7 @@
                 "DateOfBirth": {
                   "style": "form"
                 },
-                "ImagePath": {
+                "DeptId": {
                   "style": "form"
                 },
                 "ImageFile": {
@@ -147,10 +266,6 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "Id": {
-                    "type": "integer",
-                    "format": "int32"
-                  },
                   "Name": {
                     "maxLength": 15,
                     "minLength": 6,
@@ -177,8 +292,9 @@
                     "type": "string",
                     "format": "date-time"
                   },
-                  "ImagePath": {
-                    "type": "string"
+                  "DeptId": {
+                    "type": "integer",
+                    "format": "int32"
                   },
                   "ImageFile": {
                     "type": "string",
@@ -187,9 +303,6 @@
                 }
               },
               "encoding": {
-                "Id": {
-                  "style": "form"
-                },
                 "Name": {
                   "style": "form"
                 },
@@ -208,7 +321,7 @@
                 "DateOfBirth": {
                   "style": "form"
                 },
-                "ImagePath": {
+                "DeptId": {
                   "style": "form"
                 },
                 "ImageFile": {
@@ -270,8 +383,38 @@
       }
     }
   },
-  "components": { },
+  "components": {
+    "schemas": {
+      "DepartmentInputDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "minLength": 2,
+            "type": "string",
+            "nullable": true
+          },
+          "location": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "pattern": "^01[0125][0-9]{8}$",
+            "type": "string",
+            "nullable": true
+          },
+          "manager": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
   "tags": [
+    {
+      "name": "Department"
+    },
     {
       "name": "Student"
     }

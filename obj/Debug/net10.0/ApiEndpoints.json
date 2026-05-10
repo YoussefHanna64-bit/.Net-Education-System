@@ -1,5 +1,84 @@
 [
   {
+    "ContainingType": "Education_System.Controllers.DepartmentController",
+    "Method": "getAllDepartments",
+    "RelativePath": "api/Department",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Education_System.Controllers.DepartmentController",
+    "Method": "addDepartment",
+    "RelativePath": "api/Department",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Education_System.DTOs.DepartmentInputDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Education_System.Controllers.DepartmentController",
+    "Method": "getDepartmentByID",
+    "RelativePath": "api/Department/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Education_System.Controllers.DepartmentController",
+    "Method": "updateDepartment",
+    "RelativePath": "api/Department/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "Education_System.DTOs.DepartmentInputDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Education_System.Controllers.DepartmentController",
+    "Method": "deleteDepartment",
+    "RelativePath": "api/Department/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Education_System.Controllers.StudentController",
     "Method": "getAllStudents",
     "RelativePath": "api/Student",
@@ -17,11 +96,6 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [
-      {
-        "Name": "Id",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
       {
         "Name": "Name",
         "Type": "System.String",
@@ -53,8 +127,8 @@
         "IsRequired": false
       },
       {
-        "Name": "ImagePath",
-        "Type": "System.String",
+        "Name": "DeptId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       },
       {
@@ -95,11 +169,6 @@
         "IsRequired": true
       },
       {
-        "Name": "Id",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
         "Name": "Name",
         "Type": "System.String",
         "IsRequired": false
@@ -130,8 +199,8 @@
         "IsRequired": false
       },
       {
-        "Name": "ImagePath",
-        "Type": "System.String",
+        "Name": "DeptId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       },
       {
