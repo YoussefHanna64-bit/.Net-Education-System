@@ -1,4 +1,5 @@
-﻿using Education_System.Context;
+﻿using System.IO;
+using Education_System.Context;
 using Education_System.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,18 @@ namespace Education_System.Controllers
 		public StudentController()
 		{
 			db = new EduContext();
+		}
+		private async Task<string> UploadImage(IFormFile file)
+		{
+
+			string filePath = Path.Combine("wwwroot/images", file.FileName);
+
+			using (var stream = new FileStream(filePath, FileMode.Create))
+			{
+				await file.CopyToAsync(stream);
+			}
+
+			return file.FileName;
 		}
 
 		[HttpGet]
@@ -54,8 +67,13 @@ namespace Education_System.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult addStudent(Student st)
+		public async Task<IActionResult> addStudent([FromForm] Student st)
 		{
+			if (st.ImageFile != null)
+			{
+				st.ImagePath = await UploadImage(st.ImageFile);
+			}
+
 			db.Students.Add(st);
 			db.SaveChanges();
 
@@ -63,8 +81,13 @@ namespace Education_System.Controllers
 		}
 
 		[HttpPut("{id}")]
-		public IActionResult updateStudent(int id, Student st)
+		public async Task<IActionResult> updateStudent(int id, [FromForm] Student st)
 		{
+			if (st.ImageFile != null)
+			{
+				st.ImagePath = await UploadImage(st.ImageFile);
+			}
+
 			var student = db.Students.FirstOrDefault(s => s.Id == id);
 
 			if (student == null)

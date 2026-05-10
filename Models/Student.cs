@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Education_System.Validators;
 
 namespace Education_System.Models
@@ -25,5 +26,11 @@ namespace Education_System.Models
 		public int Level { get; set; }
 		[DateInPast]
 		public DateTime DateOfBirth { get; set; }
+
+		public string? ImagePath { get; set; }
+
+		[NotMapped]
+		[JsonIgnore]
+		public IFormFile? ImageFile { get; set; }
 	}
 }

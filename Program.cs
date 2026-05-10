@@ -41,7 +41,7 @@ namespace Education_System
 			}
 
 			//app.UseAuthorization();
-
+			app.UseStaticFiles();
 
 			app.MapControllers();
 
