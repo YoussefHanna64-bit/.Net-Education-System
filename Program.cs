@@ -2,6 +2,7 @@
 using Education_System.Context;
 using Education_System.Filters;
 using Education_System.Middleware;
+using Education_System.Repo;
 using NLog.Web;
 
 namespace Education_System
@@ -14,7 +15,7 @@ namespace Education_System
 
 			// Add services to the container.
 			builder.Services.AddDbContext<EduContext>();
-
+			builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 			builder.Services.AddControllers(op =>
 			{
 				op.Filters.Add<ExceptionHandleFilter>();
@@ -27,14 +28,15 @@ namespace Education_System
 
 			builder.Host.UseNLog();
 
-			builder.Services.AddCors(op=> { 
-                op.AddPolicy("AllowAll", policy =>
-                {
-                    policy.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader();
-                });
-            } );
+			builder.Services.AddCors(op =>
+			{
+				op.AddPolicy("AllowAll", policy =>
+				{
+					policy.AllowAnyOrigin()
+					.AllowAnyMethod()
+					.AllowAnyHeader();
+				});
+			});
 
 			var app = builder.Build();
 
@@ -51,8 +53,8 @@ namespace Education_System
 
 			//app.UseAuthorization();
 			app.UseStaticFiles();
-			
-            app.UseCors("AllowAll");
+
+			app.UseCors("AllowAll");
 
 			app.MapControllers();
 

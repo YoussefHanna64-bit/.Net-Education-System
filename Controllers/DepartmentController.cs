@@ -1,6 +1,7 @@
 ﻿using Education_System.Context;
 using Education_System.DTOs;
 using Education_System.Models;
+using Education_System.Repo;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,17 +12,17 @@ namespace Education_System.Controllers
 	[ApiController]
 	public class DepartmentController : ControllerBase
 	{
-		EduContext db;
+		IUnitOfWork uw;
 
-		public DepartmentController()
+		public DepartmentController(IUnitOfWork unitOfWork)
 		{
-			db = new EduContext();
+			uw = unitOfWork;
 		}
 
 		[HttpGet]
 		public IActionResult getAllDepartments()
 		{
-			var depts = db.Departments.Include(d => d.Students).ToList();
+			var depts = uw.Departments.GetAllWithStds();
 
 			if (depts == null)
 			{
@@ -48,7 +49,7 @@ namespace Education_System.Controllers
 		public IActionResult getDepartmentByID(int id)
 		{
 
-			var dept = db.Departments.Include(d => d.Students).FirstOrDefault(d => d.Id == id);
+			var dept = uw.Departments.GetByIdWithStds(id);
 
 			if (dept == null)
 			{
@@ -82,8 +83,8 @@ namespace Education_System.Controllers
 				PhoneNumber = dto.PhoneNumber,
 				Manager = dto.Manager
 			};
-			db.Departments.Add(dept);
-			db.SaveChanges();
+			uw.Departments.Add(dept);
+			uw.Save();
 
 			return CreatedAtAction(nameof(getDepartmentByID), new { id = dept.Id }, new { msg = "success", data = dept });
 		}
@@ -96,7 +97,7 @@ namespace Education_System.Controllers
 				return BadRequest(ModelState);
 			}
 
-			var department = db.Departments.FirstOrDefault(d => d.Id == id);
+			var department = uw.Departments.GetById(id);
 
 			if (department == null)
 			{
@@ -108,7 +109,7 @@ namespace Education_System.Controllers
 			department.PhoneNumber = dto.PhoneNumber;
 			department.Manager = dto.Manager;
 
-			db.SaveChanges();
+			uw.Save();
 
 			return Ok(new { msg = "success", data = department });
 		}
@@ -116,15 +117,15 @@ namespace Education_System.Controllers
 		[HttpDelete("{id}")]
 		public IActionResult deleteDepartment(int id)
 		{
-			var dept = db.Departments.FirstOrDefault(d => d.Id == id);
+			var dept = uw.Departments.GetById(id);
 
 			if (dept == null)
 			{
 				return NotFound(new { msg = "Department Not Found" });
 			}
 
-			db.Departments.Remove(dept);
-			db.SaveChanges();
+			uw.Departments.Delete(dept);
+			uw.Save();
 
 			return Ok(new { msg = "success" });
 		}

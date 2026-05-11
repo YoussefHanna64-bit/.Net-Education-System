@@ -2,6 +2,7 @@
 using Education_System.Context;
 using Education_System.DTOs;
 using Education_System.Models;
+using Education_System.Repo;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,12 +13,13 @@ namespace Education_System.Controllers
 	[ApiController]
 	public class StudentController : ControllerBase
 	{
-		EduContext db;
+		IUnitOfWork uw;
 
-		public StudentController()
+		public StudentController(IUnitOfWork unitOfWork)
 		{
-			db = new EduContext();
+			uw = unitOfWork;
 		}
+
 		private async Task<string> UploadImage(IFormFile file)
 		{
 
@@ -34,7 +36,7 @@ namespace Education_System.Controllers
 		[HttpGet]
 		public IActionResult getAllStudents()
 		{
-			var st = db.Students.Include(d => d.Department).ToList();
+			var st = uw.Students.GetAllWithDepts();
 			if (st is null)
 			{
 				return NotFound("No Students Found");
@@ -70,7 +72,7 @@ namespace Education_System.Controllers
 			// 	throw new Exception("ID can't be zero");
 			// }
 
-			var st = db.Students.Include(s => s.Department).FirstOrDefault(s => s.Id == id);
+			var st = uw.Students.GetByIdWithDepts(id);
 
 			if (st == null)
 			{
@@ -98,7 +100,7 @@ namespace Education_System.Controllers
 		[HttpGet("{name:alpha}")]
 		public IActionResult getStudentByName(string name)
 		{
-			var st = db.Students.Include(s => s.Department).FirstOrDefault(s => s.Name == name);
+			var st = uw.Students.GetByNameWithDepts(name);
 
 			if (st == null)
 			{
@@ -146,8 +148,8 @@ namespace Education_System.Controllers
 				st.ImagePath = await UploadImage(stDTO.ImageFile);
 			}
 
-			db.Students.Add(st);
-			db.SaveChanges();
+			uw.Students.Add(st);
+			uw.Save();
 
 			return CreatedAtAction(nameof(getStudentByID), new { id = st.Id }, new { msg = "success", data = st });
 		}
@@ -160,7 +162,7 @@ namespace Education_System.Controllers
 				return BadRequest(ModelState);
 			}
 
-			var st = db.Students.FirstOrDefault(s => s.Id == id);
+			var st = uw.Students.GetById(id);
 
 			if (st == null)
 			{
@@ -180,7 +182,7 @@ namespace Education_System.Controllers
 				st.ImagePath = await UploadImage(stDTO.ImageFile);
 			}
 
-			db.SaveChanges();
+			uw.Save();
 
 			return Ok(new { msg = "success", data = st });
 		}
@@ -189,14 +191,14 @@ namespace Education_System.Controllers
 		[HttpDelete("{id}")]
 		public IActionResult deleteStudent(int id)
 		{
-			var st = db.Students.FirstOrDefault(s => s.Id == id);
+			var st = uw.Students.GetById(id);
 
 			if (st == null)
 			{
 				return NotFound(new { msg = "Student Not Found" });
 			}
-			db.Students.Remove(st);
-			db.SaveChanges();
+			uw.Students.Delete(st);
+			uw.Save();
 
 			return Ok(new { msg = "success" });
 		}
