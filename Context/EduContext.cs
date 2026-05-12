@@ -1,9 +1,10 @@
 ﻿using Education_System.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Education_System.Context
 {
-	public class EduContext : DbContext
+	public class EduContext : IdentityDbContext<ApplicationUser>
 	{
 
 		public EduContext(DbContextOptions op) : base(op)

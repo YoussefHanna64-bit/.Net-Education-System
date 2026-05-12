@@ -2,7 +2,9 @@
 using Education_System.Context;
 using Education_System.Filters;
 using Education_System.Middleware;
+using Education_System.Models;
 using Education_System.Repo;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using NLog.Web;
@@ -21,7 +23,15 @@ namespace Education_System
 			{
 				op.UseSqlServer(builder.Configuration.GetConnectionString("dev"));
 			});
+
+			builder.Services.AddIdentity<ApplicationUser, IdentityRole>(op =>
+			{
+				op.User.RequireUniqueEmail = true;
+
+			}).AddEntityFrameworkStores<EduContext>();
+
 			builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 			builder.Services.AddControllers(op =>
 			{
 				op.Filters.Add<ExceptionHandleFilter>();
