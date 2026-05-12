@@ -3,6 +3,8 @@ using Education_System.Context;
 using Education_System.Filters;
 using Education_System.Middleware;
 using Education_System.Repo;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using NLog.Web;
 
 namespace Education_System
@@ -14,7 +16,11 @@ namespace Education_System
 			var builder = WebApplication.CreateBuilder(args);
 
 			// Add services to the container.
-			builder.Services.AddDbContext<EduContext>();
+
+			builder.Services.AddDbContext<EduContext>(op =>
+			{
+				op.UseSqlServer(builder.Configuration.GetConnectionString("dev"));
+			});
 			builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 			builder.Services.AddControllers(op =>
 			{
