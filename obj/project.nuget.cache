@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "kTjhb5tinFk=",
+  "dgSpecHash": "4Gd6FkD4FRU=",
   "success": true,
   "projectFilePath": "E:\\C\\ITI\\Mobile Applications Development (Cross Platform)\\.Net\\Education System\\Education System\\Education System.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\THE LEGEND\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\THE LEGEND\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",
     "C:\\Users\\THE LEGEND\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\THE LEGEND\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\10.0.7\\microsoft.aspnetcore.identity.entityframeworkcore.10.0.7.nupkg.sha512",
     "C:\\Users\\THE LEGEND\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.3\\microsoft.aspnetcore.openapi.10.0.3.nupkg.sha512",
     "C:\\Users\\THE LEGEND\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\8.0.0\\microsoft.bcl.asyncinterfaces.8.0.0.nupkg.sha512",
     "C:\\Users\\THE LEGEND\\.nuget\\packages\\microsoft.bcl.cryptography\\9.0.4\\microsoft.bcl.cryptography.9.0.4.nupkg.sha512",

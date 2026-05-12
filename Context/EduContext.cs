@@ -6,9 +6,9 @@ namespace Education_System.Context
 	public class EduContext : DbContext
 	{
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		public EduContext(DbContextOptions op) : base(op)
 		{
-			optionsBuilder.UseSqlServer("Server=.;Database=Education System;Trusted_Connection=True;Encrypt=False;");
+
 		}
 
 		public DbSet<Student> Students { get; set; }
