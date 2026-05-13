@@ -154,7 +154,7 @@
   },
   {
     "ContainingType": "Education_System.Controllers.StudentController",
-    "Method": "getAllStudents",
+    "Method": "getAllStudentsAsync",
     "RelativePath": "api/Student",
     "HttpMethod": "GET",
     "IsController": true,

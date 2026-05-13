@@ -11,9 +11,9 @@ namespace Education_System.Repo
 		{
 		}
 
-		public List<Student> GetAllWithDepts()
+		public async Task<List<Student>> GetAllWithDeptsAsync(CancellationToken ct)
 		{
-			return db.Students.Include(s => s.Department).ToList();
+			return await db.Students.Include(s => s.Department).ToListAsync(ct);
 		}
 
 		public Student GetByIdWithDepts(int id)

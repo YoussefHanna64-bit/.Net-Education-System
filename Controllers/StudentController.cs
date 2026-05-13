@@ -38,9 +38,14 @@ namespace Education_System.Controllers
 
 		[HttpGet]
 		[Authorize(Roles = "Admin")]
-		public IActionResult getAllStudents()
+		public async Task<IActionResult> getAllStudentsAsync(CancellationToken ct)
 		{
-			var st = uw.Students.GetAllWithDepts();
+			if (ct.IsCancellationRequested)
+			{
+				return BadRequest(new { msg = "Request is cancelled" });
+			}
+
+			var st = await uw.Students.GetAllWithDeptsAsync(ct);
 			if (st is null)
 			{
 				return NotFound("No Students Found");

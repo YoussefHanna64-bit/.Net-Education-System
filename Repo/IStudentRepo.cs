@@ -4,7 +4,7 @@ namespace Education_System.IRepo
 {
 	public interface IStudentRepo : IGenericRepo<Student>
 	{
-		List<Student> GetAllWithDepts();
+		Task<List<Student>> GetAllWithDeptsAsync(CancellationToken ct);
 		Student GetByIdWithDepts(int id);
 		Student GetByNameWithDepts(string name);
 	}
