@@ -2,6 +2,7 @@
 using Education_System.DTOs;
 using Education_System.Models;
 using Education_System.Repo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ namespace Education_System.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize(Roles = "Admin")]
 	public class DepartmentController : ControllerBase
 	{
 		IUnitOfWork uw;
@@ -20,6 +22,7 @@ namespace Education_System.Controllers
 		}
 
 		[HttpGet]
+		[AllowAnonymous]
 		public IActionResult getAllDepartments()
 		{
 			var depts = uw.Departments.GetAllWithStds();

@@ -1,7 +1,7 @@
 [
   {
     "ContainingType": "Education_System.Controllers.AccountController",
-    "Method": "LoginAsync",
+    "Method": "Login",
     "RelativePath": "api/Account/login",
     "HttpMethod": "POST",
     "IsController": true,
@@ -17,7 +17,7 @@
   },
   {
     "ContainingType": "Education_System.Controllers.AccountController",
-    "Method": "RegisterAsync",
+    "Method": "Register",
     "RelativePath": "api/Account/register",
     "HttpMethod": "POST",
     "IsController": true,
@@ -106,6 +106,22 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Education_System.Controllers.RoleController",
+    "Method": "AddRole",
+    "RelativePath": "api/Role",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roleName",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

@@ -4,9 +4,11 @@ using Education_System.Filters;
 using Education_System.Middleware;
 using Education_System.Models;
 using Education_System.Repo;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using NLog.Web;
 
 namespace Education_System
@@ -29,6 +31,25 @@ namespace Education_System
 				op.User.RequireUniqueEmail = true;
 
 			}).AddEntityFrameworkStores<EduContext>();
+
+			builder.Services.AddAuthentication(op =>
+			{
+				op.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				op.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+
+			}).AddJwtBearer(op =>
+			{
+				op.SaveToken = true;
+				op.TokenValidationParameters = new TokenValidationParameters
+				{
+					ValidateIssuer = true,
+					ValidIssuer = "https://localhost:44360/",
+					ValidateAudience = true,
+					ValidAudience = "https://localhost:44360/",
+					ValidateIssuerSigningKey = true,
+					IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("ff996dbb717b65380d2bc55fc9a2b570eed98a8699715f400828a615bd1712c0"))
+				};
+			});
 
 			builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -67,7 +88,9 @@ namespace Education_System
 				app.UseSwaggerUI();
 			}
 
-			//app.UseAuthorization();
+			app.UseAuthentication();
+			app.UseAuthorization();
+
 			app.UseStaticFiles();
 
 			app.UseCors("AllowAll");

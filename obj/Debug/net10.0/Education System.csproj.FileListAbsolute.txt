@@ -168,3 +168,4 @@ E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\
 E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\bin\Debug\net10.0\NLog.Web.AspNetCore.dll
 E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\bin\Debug\net10.0\libman.json
 E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\bin\Debug\net10.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+E:\C\ITI\Mobile Applications Development (Cross Platform)\.Net\Education System\Education System\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

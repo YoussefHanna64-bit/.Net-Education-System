@@ -1,9 +1,12 @@
-﻿using Education_System.DTOs;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Education_System.DTOs;
 using Education_System.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Education_System.Controllers
 {
@@ -19,7 +22,7 @@ namespace Education_System.Controllers
 		}
 
 		[HttpPost("register")]
-		public async Task<IActionResult> RegisterAsync(RegisterDTO userDTO)
+		public async Task<IActionResult> Register(RegisterDTO userDTO)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -35,6 +38,15 @@ namespace Education_System.Controllers
 
 			if (res.Succeeded)
 			{
+				string role = "Student";
+
+				if (userDTO.Role == "Admin" && User.IsInRole("Admin"))
+				{
+					role = "Admin";
+				}
+
+				await _userManager.AddToRoleAsync(user, role);
+
 				return Ok(new { msg = "User registered successfully" });
 			}
 
@@ -48,7 +60,7 @@ namespace Education_System.Controllers
 		}
 
 		[HttpPost("login")]
-		public async Task<IActionResult> LoginAsync(LoginDTO userDTO)
+		public async Task<IActionResult> Login(LoginDTO userDTO)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -63,7 +75,38 @@ namespace Education_System.Controllers
 
 				if (isValid)
 				{
-					return Ok(new { msg = "Login successful" });
+					var roles = await _userManager.GetRolesAsync(user);
+
+					List<Claim> claims = new List<Claim>
+					{
+						new Claim(ClaimTypes.NameIdentifier, user.Id),
+						new Claim(ClaimTypes.Email, user.Email),
+						new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+					};
+
+					foreach (var role in roles)
+					{
+						claims.Add(new Claim(ClaimTypes.Role, role));
+					}
+
+					SymmetricSecurityKey key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("ff996dbb717b65380d2bc55fc9a2b570eed98a8699715f400828a615bd1712c0"));
+
+					SigningCredentials sc = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+					JwtSecurityToken token = new JwtSecurityToken(
+						issuer: "https://localhost:44360/",
+						audience: "https://localhost:44360/",
+						expires: DateTime.Now.AddHours(1),
+						claims: claims,
+						signingCredentials: sc
+					);
+
+					return Ok(new
+					{
+						msg = "Login successful",
+						token = new JwtSecurityTokenHandler().WriteToken(token),
+						expires = token.ValidTo
+					});
 				}
 			}
 			return BadRequest(new { msg = "Invalid Email or Password" });

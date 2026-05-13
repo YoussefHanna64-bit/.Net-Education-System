@@ -192,6 +192,27 @@
         }
       }
     },
+    "/api/Role": {
+      "post": {
+        "tags": [
+          "Role"
+        ],
+        "parameters": [
+          {
+            "name": "roleName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Student": {
       "get": {
         "tags": [
@@ -521,6 +542,9 @@
     },
     {
       "name": "Department"
+    },
+    {
+      "name": "Role"
     },
     {
       "name": "Student"

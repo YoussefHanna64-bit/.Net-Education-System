@@ -1,8 +1,10 @@
 ﻿using System.IO;
+using System.Security.Claims;
 using Education_System.Context;
 using Education_System.DTOs;
 using Education_System.Models;
 using Education_System.Repo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +13,7 @@ namespace Education_System.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class StudentController : ControllerBase
 	{
 		IUnitOfWork uw;
@@ -34,6 +37,7 @@ namespace Education_System.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = "Admin")]
 		public IActionResult getAllStudents()
 		{
 			var st = uw.Students.GetAllWithDepts();
@@ -65,6 +69,7 @@ namespace Education_System.Controllers
 		}
 
 		[HttpGet("{id:int}")]
+		[Authorize(Roles = "Admin,Student")]
 		public IActionResult getStudentByID(int id)
 		{
 			// if (id == 0)
@@ -98,6 +103,7 @@ namespace Education_System.Controllers
 
 
 		[HttpGet("{name:alpha}")]
+		[Authorize(Roles = "Admin")]
 		public IActionResult getStudentByName(string name)
 		{
 			var st = uw.Students.GetByNameWithDepts(name);
@@ -125,6 +131,7 @@ namespace Education_System.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> addStudent([FromForm] StudentInputDTO stDTO)
 		{
 			if (!ModelState.IsValid)
@@ -155,8 +162,16 @@ namespace Education_System.Controllers
 		}
 
 		[HttpPut("{id}")]
+		[Authorize(Roles = "Student")]
 		public async Task<IActionResult> updateStudent(int id, [FromForm] StudentInputDTO stDTO)
 		{
+			var user = User.FindFirst(ClaimTypes.Email)?.Value;
+
+			if (stDTO.Email != user)
+			{
+				return Forbid("You can't do this");
+			}
+
 			if (!ModelState.IsValid)
 			{
 				return BadRequest(ModelState);
@@ -189,6 +204,7 @@ namespace Education_System.Controllers
 
 
 		[HttpDelete("{id}")]
+		[Authorize(Roles = "Admin")]
 		public IActionResult deleteStudent(int id)
 		{
 			var st = uw.Students.GetById(id);
